@@ -1,0 +1,30 @@
+{
+  "name": "kata-tdd-1-hung-nguyen",
+  "version": "1.0.0",
+  "description": "kata http://osherove.com/tdd-kata-1/",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://kaizvn:kaizvnn1@github.com/agile-vietnam/kata-tdd-1-hung-nguyen.git"
+  },
+  "author": "Hung Nguyen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/agile-vietnam/kata-tdd-1-hung-nguyen/issues"
+  },
+  "homepage": "https://github.com/agile-vietnam/kata-tdd-1-hung-nguyen",
+  "dependencies": {
+    "express": "^4.10.7"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "test",
+    "kata"
+  ]
+}
