@@ -7,22 +7,33 @@
 <body>
 
 <!-- Template include-->
-<div ng-include src="'html/calculator.html'" onload="true"></div>
+<div ng-include src="'modules/calculator/views/calculator.html'"></div>
 <!-- Template include END -->
 
 <!-- CSS include -->
 <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" type="text/css">
 <!-- CSS END-->
 
-<!-- javascript include -->
+<!-- javascript libraries include -->
 <script src="lib/angularjs/angular.min.js"></script>
+<script src="lib/angular-mocks/angular-mocks.js"></script>
 <script src="lib/jquery/dist/jquery.min.js"></script>
 <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="lib/lodash/dist/lodash.min.js"></script>
 
-<script src="scripts/app.js"></script>
-<script src="scripts/controller/calculatorCtrl.js"></script>
+<!-- Javascript libraries END-->
 
-<!-- Javascript END-->
+<!-- Angular app init include -->
+<script src="modules/app.js"></script>
+<!-- Angular app init include END-->
+
+<!-- Angular Service -->
+<script src="modules/calculator/services/calculatorConfig.js"></script>
+<!-- Angular Service END -->
+
+<!-- Angular Controller -->
+<script src="modules/calculator/controllers/calculatorCtrl.js"></script>
+<!-- Angular Controller END -->
+
 </body>
 </html>

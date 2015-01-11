@@ -1,0 +1,32 @@
+{
+  "name": "kata-tdd-1-hung-nguyen",
+  "version": "1.0.0",
+  "description": "kata http://osherove.com/tdd-kata-1/",
+  "main": "gruntFile.js",
+  "dependencies": {
+    "connect": "^3.3.4",
+    "serve-static": "^1.8.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-develop": "^0.4.0",
+    "grunt-jasmine-node": "^0.2.1",
+    "karma-jasmine": "^0.3.4",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "load-grunt-tasks": "^0.6.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://kaizvn:kaizvnn1@github.com/kaizvn/kata-tdd-1-hung-nguyen.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kaizvn/kata-tdd-1-hung-nguyen/issues"
+  },
+  "homepage": "https://github.com/kaizvn/kata-tdd-1-hung-nguyen"
+}
