@@ -3,10 +3,10 @@
  */
 
 
-function calculatorController ($scope, calcModel) {
+function calculatorController($scope, calcConfig) {
     // Init default value
-    var delimiter = calcModel.delimiters;
-    $scope.inputNumbers = calcModel.inputNumbers;
+    var delimiter = calcConfig.delimiters;
+    $scope.inputNumbers = calcConfig.inputNumbers;
     $scope.result = 0;
 
     $scope.add = function () {
@@ -26,6 +26,6 @@ function calculatorController ($scope, calcModel) {
     }
 }
 
-calculatorController.$inject = ['$scope', 'calcModel'];
+calculatorController.$inject = ['$scope', 'calcConfig'];
 
 kataApp.controller('calcCtrl', calculatorController);
