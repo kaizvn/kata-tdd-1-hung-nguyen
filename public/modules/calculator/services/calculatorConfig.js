@@ -7,8 +7,8 @@
 function calculatorConfig() {
     // Define calculator's default value
     var defaultValue = {
-        delimiters: ',',
-        inputNumbers: ''
+        delimiters: [',', '\n'], // task 3 include \n as delimiters.
+        inputNumbers: '1,2,3'
     }
     return defaultValue;
 }

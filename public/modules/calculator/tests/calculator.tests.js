@@ -14,7 +14,7 @@ describe('TDD Kata test', function () {
     }));
 
 
-    describe('1.2 - simplest test cases - calcCtrl', function () {
+    describe('1 - simplest test cases : ', function () {
         it('Input : "".', function () {
             $scope.inputNumbers = '';
             $scope.add();
@@ -27,7 +27,7 @@ describe('TDD Kata test', function () {
             expect($scope.result).toEqual(1);
         });
 
-        it('Input :"1,2".', function () {
+        it('Input :"1,2"', function () {
             $scope.inputNumbers = '1,2';
             $scope.add();
             expect($scope.result).toEqual(3);
@@ -51,7 +51,7 @@ describe('TDD Kata test', function () {
         it('Input : "1,ad,sd,4" ', function () {
             $scope.inputNumbers = '1,ad,sd,4';
             $scope.add();
-            expect($scope.result).toEqual(5);
+            expect($scope.result).toEqual(0);
         });
 
         it('Input :"1,,2," ', function () {
@@ -89,4 +89,44 @@ describe('TDD Kata test', function () {
         });
 
     });
+
+    describe(' - Support different delimiters ', function () {
+        it('Input : "//;\n1;2" ', function () {
+            $scope.inputNumbers = '//;\n1;2';
+            $scope.add();
+            expect($scope.result).toEqual(3);
+        });
+
+        it('Input : "//\n1,2"', function () {
+            $scope.inputNumbers = '//\n1,2';
+            $scope.add();
+            expect($scope.result).toEqual(3);
+        });
+
+        it('Input : "//\n1;2"', function () {
+            $scope.inputNumbers = '//\n1;2';
+            $scope.add();
+            expect($scope.result).toEqual(0);
+        });
+
+        it('Input : "//\n1;2,5"', function () {
+            $scope.inputNumbers = '//\n1;2,5';
+            $scope.add();
+            expect($scope.result).toEqual(0);
+        });
+
+        it('Input : ";\n1;2"', function () {
+            $scope.inputNumbers = ';\n1;2';
+            $scope.add();
+            expect($scope.result).toEqual(0);
+        });
+
+        it('Input :"//;\n1;2\n3,5"', function () {
+            $scope.inputNumbers = '//;\n1;2\n3,5';
+            $scope.add();
+            expect($scope.result).toEqual(11);
+        });
+
+    });
+
 });
