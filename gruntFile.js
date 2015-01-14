@@ -53,7 +53,5 @@ module.exports = function (grunt) {
     // Grunt Register tasks
     grunt.registerTask('default', ['karma', 'watch:dev']);
     grunt.registerTask('test', ['karma']);
-    grunt.registerTask('build-test', ['watch:test']);
-
-
+    grunt.registerTask('writeTest', ['watch:test']);
 }

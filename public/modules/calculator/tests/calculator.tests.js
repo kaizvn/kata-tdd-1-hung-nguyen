@@ -4,39 +4,89 @@
 describe('TDD Kata test', function () {
     beforeEach(module('kataApp'));
 
-    var $controller;
+    var $controller, $scope, controller;
 
     beforeEach(inject(function (_$controller_) {
         // The injector unwraps the underscores (_) from around the parameter names when matching
         $controller = _$controller_;
+        $scope = {};
+        controller = $controller('calcCtrl', {$scope: $scope});
     }));
 
+
     describe('1.2 - simplest test cases - calcCtrl', function () {
-        var $scope, controller;
-
-        beforeEach(function () {
-            $scope = {};
-            controller = $controller('calcCtrl', {$scope: $scope});
-        });
-
-        it('Input : "".  Result should return 0', function () {
+        it('Input : "".', function () {
             $scope.inputNumbers = '';
             $scope.add();
             expect($scope.result).toEqual(0);
         });
 
-        it('Input : "1". Result should return 1', function () {
+        it('Input : "1".', function () {
             $scope.inputNumbers = '1';
             $scope.add();
             expect($scope.result).toEqual(1);
         });
 
-        it('Input :"1,2". Result should return 3', function () {
+        it('Input :"1,2".', function () {
             $scope.inputNumbers = '1,2';
+            $scope.add();
+            expect($scope.result).toEqual(3);
+        });
+
+        it('Input :"1,,5".', function () {
+            $scope.inputNumbers = '1,,5';
+            $scope.add();
+            expect($scope.result).toEqual(6);
+        });
+
+    });
+
+    describe('2 - Allow the Add method to handle an unknown amount of numbers', function () {
+        it('Input : null .', function () {
+            $scope.inputNumbers = null;
+            $scope.add();
+            expect($scope.result).toEqual(0);
+        });
+
+        it('Input : "1,ad,sd,4" ', function () {
+            $scope.inputNumbers = '1,ad,sd,4';
+            $scope.add();
+            expect($scope.result).toEqual(5);
+        });
+
+        it('Input :"1,,2," ', function () {
+            $scope.inputNumbers = '1,,2,';
             $scope.add();
             expect($scope.result).toEqual(3);
         });
 
     });
 
-})
+
+    describe('3 - Accept \n as delimiter ', function () {
+        it('Input : "1,2,\n,3".', function () {
+            $scope.inputNumbers = '1,2,\n,3';
+            $scope.add();
+            expect($scope.result).toEqual(6);
+        });
+
+        it('Input : "1,\n".', function () {
+            $scope.inputNumbers = '1,\n';
+            $scope.add();
+            expect($scope.result).toEqual(1);
+        });
+
+        it('Input :"\n,".', function () {
+            $scope.inputNumbers = '\n,';
+            $scope.add();
+            expect($scope.result).toEqual(0);
+        });
+
+        it('Input :"\n1,2,3,\n,4,5\n".', function () {
+            $scope.inputNumbers = '\n1,2,3,\n,4,5\n';
+            $scope.add();
+            expect($scope.result).toEqual(15);
+        });
+
+    });
+});
