@@ -90,7 +90,7 @@ describe('TDD Kata test', function () {
 
     });
 
-    describe(' - Support different delimiters ', function () {
+    describe('4 - Support different delimiters ', function () {
         it('Input : "//;\n1;2" ', function () {
             $scope.inputNumbers = '//;\n1;2';
             $scope.add();

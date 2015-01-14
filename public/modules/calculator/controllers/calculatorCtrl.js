@@ -34,7 +34,7 @@ function calculatorController($scope, calcConfig) {
 
             while (inputNumberArray.length) {
                 var number = inputNumberArray.pop();
-                if (validateNumberRegExp.test(number)) { //validate if it's number or string
+                if (validateNumberRegExp.test(number)) { //validate number is not contain characters or special characters
                     number = parseInt(number);
                     $scope.result += (isNaN(number)) ? 0 : number;
                 } else {
