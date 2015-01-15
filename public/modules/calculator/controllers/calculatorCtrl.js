@@ -7,7 +7,7 @@ function calculatorController($scope, calcConfig) {
     // Init default value
     var defaultDelimiter = calcConfig.delimiters
         , exportDelimiterRegExp = new RegExp('^\/\/([^\n]*)\n([^]*)')
-        , validateNumberRegExp = new RegExp('^([0-9-]+|)$') // if case 1,, and 1,\n isn't accepted, remove the regExp match with empty string
+        , validateNumberRegExp = new RegExp('^([0-9-]+|)$');// if case 1,, and 1,\n isn't accepted, remove the regExp match with empty string
 
     $scope.add = function () {
         // Reset result
@@ -20,8 +20,9 @@ function calculatorController($scope, calcConfig) {
             // Split the custom delimiter and data input by RegExp
             var customDelimiterExport = $scope.inputNumbers.match(exportDelimiterRegExp);
 
+            // Check if input has delimiter defined
             if (customDelimiterExport !== null) {
-                delimiter = defaultDelimiter.concat((customDelimiterExport[1].length !== 0) ? [customDelimiterExport[1]] : []);
+                delimiter = (customDelimiterExport[1].length !== 0) ? [customDelimiterExport[1]] : defaultDelimiter;
                 inputData = customDelimiterExport[2];
             } else {
                 delimiter = defaultDelimiter;

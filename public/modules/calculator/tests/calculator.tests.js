@@ -124,7 +124,13 @@ describe('TDD Kata test', function () {
         it('Input :"//;\n1;2\n3,5"', function () {
             $scope.inputNumbers = '//;\n1;2\n3,5';
             $scope.add();
-            expect($scope.result).toEqual(11);
+            expect($scope.result).toEqual(0);
+        });
+
+        it('Input : "//\n1,2\n3"', function () {
+            $scope.inputNumbers = '//\n1,2\n3';
+            $scope.add();
+            expect($scope.result).toEqual(6);
         });
 
     });
@@ -132,14 +138,12 @@ describe('TDD Kata test', function () {
     describe('5 - Calling Add with a negative number ', function () {
         it('Input : "-1,2,3,4" ', function () {
             $scope.inputNumbers = '-1,2,3,4';
-            expect(function () {
-                $scope.add();
-            }).toThrow(new Error("negatives not allowed"), typeof "string");
+            expect($scope.add).toThrow(new Error("negatives not allowed"));
         });
 
         it('Input : "//;\n-1;2;3;4" ', function () {
             $scope.inputNumbers = '//;\n1;2;-3;4';
-            expect($scope.add).toThrow(new Error("negatives not allowed"), typeof "string");
+            expect($scope.add).toThrow(new Error("negatives not allowed"));
         });
 
         it('Input :"//\n-1;2;3;4"', function () {
