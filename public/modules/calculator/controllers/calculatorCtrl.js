@@ -7,7 +7,7 @@ function calculatorController($scope, calcConfig) {
     // Init default value
     var defaultDelimiter = calcConfig.delimiters
         , exportDelimiterRegExp = new RegExp('^\/\/([^\n]*)\n([^]*)')
-        , validateNumberRegExp = new RegExp('^([0-9]+|)$') // if case 1,, and 1,\n isn't accepted, remove the regExp match with empty string
+        , validateNumberRegExp = new RegExp('^([0-9-]+|)$') // if case 1,, and 1,\n isn't accepted, remove the regExp match with empty string
 
     $scope.add = function () {
         // Reset result
@@ -21,7 +21,7 @@ function calculatorController($scope, calcConfig) {
             var customDelimiterExport = $scope.inputNumbers.match(exportDelimiterRegExp);
 
             if (customDelimiterExport !== null) {
-                delimiter = defaultDelimiter.concat((customDelimiterExport[1].length != 0) ? [customDelimiterExport[1]] : []);
+                delimiter = defaultDelimiter.concat((customDelimiterExport[1].length !== 0) ? [customDelimiterExport[1]] : []);
                 inputData = customDelimiterExport[2];
             } else {
                 delimiter = defaultDelimiter;
@@ -36,6 +36,9 @@ function calculatorController($scope, calcConfig) {
                 var number = inputNumberArray.pop();
                 if (validateNumberRegExp.test(number)) { //validate number is not contain characters or special characters
                     number = parseInt(number);
+                    if (number < 0) {
+                        throw new Error("negatives not allowed");
+                    }
                     $scope.result += (isNaN(number)) ? 0 : number;
                 } else {
                     $scope.result = 0;
