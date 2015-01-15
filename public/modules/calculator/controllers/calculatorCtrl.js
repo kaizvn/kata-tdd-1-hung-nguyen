@@ -35,6 +35,7 @@ function calculatorController($scope, calcConfig) {
 
             while (inputNumberArray.length) {
                 var number = inputNumberArray.pop();
+                number = (number[0] === '-') ? '-' + number.substr(1).substr(-3, 3) : number.substr(-3, 3); // Numbers bigger than 1000 should be ignored
                 if (validateNumberRegExp.test(number)) { //validate number is not contain characters or special characters
                     number = parseInt(number);
                     if (number < 0) {
@@ -47,6 +48,7 @@ function calculatorController($scope, calcConfig) {
                 }
             }
         }
+        $scope.result = $scope.result % 1000;  // Results bigger than 1000 should be ignored
         return $scope.result;
 
     };

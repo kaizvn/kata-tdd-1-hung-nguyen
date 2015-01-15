@@ -1,6 +1,8 @@
 /**
  * Created by kaizzige on 1/11/15.
  */
+
+/* TODO: handle case delimiters = '\' (replace with \\\\) */
 describe('TDD Kata test', function () {
     beforeEach(module('kataApp'));
 
@@ -152,7 +154,41 @@ describe('TDD Kata test', function () {
             expect($scope.result).toEqual(0);
         });
 
+        it('Input :"//;\n-0;2;3;4"', function () {
+            $scope.inputNumbers = '//;\n-0;2;3;4';
+            $scope.add();
+            expect($scope.result).toEqual(9);
+        });
+    });
 
+    describe('6 - Numbers bigger than 1000 should be ignored ', function () {
+        it('Input : "1000,100,10,1" ', function () {
+            $scope.inputNumbers = '1000,100,10,1';
+            $scope.add();
+            expect($scope.result).toEqual(111);
+        });
+
+        it('Input : "1000,100,-10,1" ', function () {
+            $scope.inputNumbers = '1000,100,-10,1';
+            expect($scope.add).toThrow(new Error("negatives not allowed"));
+        });
+
+        it('Input : "-1234,100,10,1" ', function () {
+            $scope.inputNumbers = '-1234,100,10,1';
+            expect($scope.add).toThrow(new Error("negatives not allowed"));
+        });
+
+        it('Input : "-1000,100,10,1" ', function () {
+            $scope.inputNumbers = '-1000,100,10,1';
+            $scope.add();
+            expect($scope.result).toEqual(111);
+        });
+
+        it('Input : "801,100,65,35" ', function () {
+            $scope.inputNumbers = '801,100,65,35';
+            $scope.add();
+            expect($scope.result).toEqual(1);
+        });
     });
 
 });
