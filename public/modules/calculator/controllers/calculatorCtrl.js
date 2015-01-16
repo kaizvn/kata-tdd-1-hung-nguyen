@@ -6,8 +6,10 @@
 function calculatorController($scope, calcConfig) {
     // Init default value
     var defaultConfig = calcConfig.getDefault()
-        , exportDelimiterRegExp = new RegExp('^\/\/([^\n]*)\n([^]*)')
-        , validateNumberRegExp = new RegExp('^([0-9-]+|)$');// if case 1,, and 1,\n isn't accepted, remove the regExp match with empty string
+        , exportDelimiterRegExp = new RegExp('^//([^\n]*)\n([^]*)')
+        , validateNumberRegExp = new RegExp('^([0-9-]+|)$')// if case 1,, and 1,\n isn't accepted, remove the regExp match with empty string
+        , multiDelimitersRegExp = new RegExp('[^\\[\\]]+', 'g');
+
 
     $scope.add = function () {
         // Reset result
@@ -22,7 +24,23 @@ function calculatorController($scope, calcConfig) {
 
             // Check if input has delimiter defined
             if (customDelimiterExport !== null) {
-                delimiter = (customDelimiterExport[1].length !== 0) ? [customDelimiterExport[1]] : defaultConfig.delimiters;
+                if (customDelimiterExport[1].length !== 0) {
+                    delimiter = [customDelimiterExport[1]];
+
+                    // Check if multi delimiters define
+                    var multiDelimiters = customDelimiterExport[1].match(multiDelimitersRegExp);
+                    if (multiDelimiters !== null) {
+
+                        for (var i = 0; i < multiDelimiters.length; i++) {
+                            multiDelimiters[i] = multiDelimiters[i].replace(/([\/\\\?\+\.\[\]\*\|])/g, '\\$1');
+                        }
+                        delimiter = multiDelimiters;
+                        console.log('multi', multiDelimiters);
+                    }
+                } else {
+                    delimiter = defaultConfig.delimiters; //handle case empty customDelimiter
+                }
+
                 inputData = customDelimiterExport[2];
             } else {
                 delimiter = defaultConfig.delimiters;
@@ -31,7 +49,9 @@ function calculatorController($scope, calcConfig) {
 
             // Get the array of input numbers
             delimiterRegExp = new RegExp(delimiter.join('|'));
+
             inputNumberArray = inputData.split(delimiterRegExp);
+            console.log('number', inputNumberArray);
 
             while (inputNumberArray.length) {
                 var number = inputNumberArray.pop();
