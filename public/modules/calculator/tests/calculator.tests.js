@@ -168,8 +168,7 @@ describe('TDD Kata test', function () {
 
         it('Input :"//;\n-0;2;3;4"', function () {
             $scope.inputNumbers = '//;\n-0;2;3;4';
-            $scope.add();
-            expect($scope.result).toEqual(9);
+            expect($scope.add).toThrow(new Error("negatives not allowed"));
         });
     });
 
@@ -191,9 +190,8 @@ describe('TDD Kata test', function () {
         });
 
         it('Input : "-1000,100,10,1" ', function () {
-            $scope.inputNumbers = '-1000,100,10,1';
-            $scope.add();
-            expect($scope.result).toEqual(111);
+            $scope.inputNumbers = '-1000,100,10,1'; // - 1000  = 0
+            expect($scope.add).toThrow(new Error("negatives not allowed"));
         });
 
         it('Input : "801,100,65,35" ', function () {
