@@ -4,42 +4,36 @@
 
 
 function calculatorController($scope, calcConfig) {
-    // Init default value
+    // Init default value & Regex string
     var defaultConfig = calcConfig.getDefault()
         , exportDelimiterRegExp = new RegExp('^//([^\n]*)\n([^]*)')
         , validateNumberRegExp = new RegExp('^(-*[0-9]+|)$')// if case 1,, and 1,\n isn't accepted, remove the regExp match with empty string
         , multiDelimitersRegExp = new RegExp('[^\\[\\]]+', 'g');
 
-
     $scope.add = function () {
         // Reset result
         $scope.result = 0;
 
-        // No need to process if typeof input === object/null/undefined
+        // Only accept "string" type
         if (typeof $scope.inputNumbers === "string") {
-            var inputData, delimiter, delimiterRegExp, inputNumberArray;
+            var inputData, delimiter, delimiterRegExp, inputNumberArray, multiDelimiters;
 
             // Split the custom delimiter and data input by RegExp
             var customDelimiterExport = $scope.inputNumbers.match(exportDelimiterRegExp);
 
-            // Check if input has been defined delimiter
+            // Check if has delimiter
             if (customDelimiterExport !== null) {
                 if (customDelimiterExport[1].length !== 0) {
+                    // Add before special characters an escape-string
                     customDelimiterExport[1] = customDelimiterExport[1].replace(/([\/\\\?\+\.\*\|\$])/g, '\\$1');
 
-                    // Check if multi delimiters define
-                    var multiDelimiters = customDelimiterExport[1].match(multiDelimitersRegExp);
-                    if (multiDelimiters !== null) {
-                        delimiter = multiDelimiters;
-                    }
-                    else {
-                        delimiter = [customDelimiterExport[1]];
-                    }
+                    // Check if has multi delimiters
+                    multiDelimiters = customDelimiterExport[1].match(multiDelimitersRegExp);
+                    delimiter = (multiDelimiters !== null) ? multiDelimiters : [customDelimiterExport[1]];
                 } else {
-                    // return default delimiter id empty input.
+                    // Return default delimiter id empty input.
                     delimiter = defaultConfig.delimiters;
                 }
-
                 inputData = customDelimiterExport[2];
 
             } else {
@@ -70,7 +64,6 @@ function calculatorController($scope, calcConfig) {
         }
         $scope.result = $scope.result % 1000;  // Results bigger than 1000 should be ignored
         return $scope.result;
-
     };
 
     $scope.inputNumbers = defaultConfig.inputNumbers;
