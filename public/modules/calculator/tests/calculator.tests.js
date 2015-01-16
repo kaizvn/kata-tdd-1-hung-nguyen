@@ -189,6 +189,17 @@ describe('TDD Kata test', function () {
             $scope.add();
             expect($scope.result).toEqual(1);
         });
+
+        it('Input : "121212010210012,32302032200202020028,651212121212050,10" ', function () {
+            $scope.inputNumbers = '121212010210012,32302032200202020028,651212121212050,10';
+            $scope.add();
+            expect($scope.result).toEqual(100);
+        });
+
+        it('Input : "121212010210012,32302032200202020028,651212121212050,-10" ', function () {
+            $scope.inputNumbers = '121212010210012,32302032200202020028,651212121212050,-10';
+            expect($scope.add).toThrow(new Error("negatives not allowed"));
+        });
     });
 
 });

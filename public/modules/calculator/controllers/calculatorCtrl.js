@@ -37,11 +37,13 @@ function calculatorController($scope, calcConfig) {
                 var number = inputNumberArray.pop();
                 number = (number[0] === '-') ? '-' + number.substr(1).substr(-3, 3) : number.substr(-3, 3); // Numbers bigger than 1000 should be ignored
                 if (validateNumberRegExp.test(number)) { //validate number is not contain characters or special characters
-                    number = parseInt(number);
+                    number = parseInt(number, 10);
+
                     if (number < 0) {
                         throw new Error("negatives not allowed");
                     }
                     $scope.result += (isNaN(number)) ? 0 : number;
+
                 } else {
                     $scope.result = 0;
                     break;
