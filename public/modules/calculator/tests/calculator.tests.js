@@ -264,4 +264,48 @@ describe('TDD Kata test', function () {
         });
     });
 
+    describe('8,9 - Allow multiple delimiters ', function () {
+        it('Input : "//[***][;]\n1***2;3" ', function () {
+            $scope.inputNumbers = '//[***][;]\n1***2;3';
+            $scope.add();
+            expect($scope.result).toEqual(6);
+        });
+
+        it('Input : "//[***][@@@]\n1***2@@@3" ', function () {
+            $scope.inputNumbers = '//[***][@@@]\n1***2@@@3';
+            $scope.add();
+            expect($scope.result).toEqual(6);
+        });
+
+        it('Input : "//[**][~~]\n1~~2**3" ', function () {
+            $scope.inputNumbers = '//[**][~~]\n1~~2**3';
+            $scope.add();
+            expect($scope.result).toEqual(6);
+        });
+
+        it('Input : "//[**][~~][%%]\n1**2~~3%%4" ', function () {
+            $scope.inputNumbers = '//[**][~~][%%]\n1**2~~3%%4';
+            $scope.add();
+            expect($scope.result).toEqual(10);
+        });
+
+        it('Input : "//[**][--]\n1--2--3**4" ', function () {
+            $scope.inputNumbers = '//[**][--]\n1--2--3**4';
+            $scope.add();
+            expect($scope.result).toEqual(10);
+        });
+
+        it('Input : "//[**][--]\n1--2---3**4" ', function () {
+            $scope.inputNumbers = '//[**][--]\n1--2---3**4';
+            expect($scope.add).toThrow(new Error("negatives not allowed"));
+        });
+
+        it('Input : "//[**][~~]\n1~~-2**3" ', function () {
+            $scope.inputNumbers = '//[**][~~]\n1~~-2**3';
+            expect($scope.add).toThrow(new Error("negatives not allowed"));
+        });
+
+    });
+
+
 });

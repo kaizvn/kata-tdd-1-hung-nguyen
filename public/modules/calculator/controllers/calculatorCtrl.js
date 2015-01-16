@@ -7,7 +7,7 @@ function calculatorController($scope, calcConfig) {
     // Init default value
     var defaultConfig = calcConfig.getDefault()
         , exportDelimiterRegExp = new RegExp('^//([^\n]*)\n([^]*)')
-        , validateNumberRegExp = new RegExp('^([0-9-]+|)$')// if case 1,, and 1,\n isn't accepted, remove the regExp match with empty string
+        , validateNumberRegExp = new RegExp('^(-*[0-9]+|)$')// if case 1,, and 1,\n isn't accepted, remove the regExp match with empty string
         , multiDelimitersRegExp = new RegExp('[^\\[\\]]+', 'g');
 
 
@@ -22,26 +22,26 @@ function calculatorController($scope, calcConfig) {
             // Split the custom delimiter and data input by RegExp
             var customDelimiterExport = $scope.inputNumbers.match(exportDelimiterRegExp);
 
-            // Check if input has delimiter defined
+            // Check if input has been defined delimiter
             if (customDelimiterExport !== null) {
                 if (customDelimiterExport[1].length !== 0) {
-                    delimiter = [customDelimiterExport[1]];
+                    customDelimiterExport[1] = customDelimiterExport[1].replace(/([\/\\\?\+\.\*\|\$])/g, '\\$1');
 
                     // Check if multi delimiters define
                     var multiDelimiters = customDelimiterExport[1].match(multiDelimitersRegExp);
                     if (multiDelimiters !== null) {
-
-                        for (var i = 0; i < multiDelimiters.length; i++) {
-                            multiDelimiters[i] = multiDelimiters[i].replace(/([\/\\\?\+\.\[\]\*\|])/g, '\\$1');
-                        }
                         delimiter = multiDelimiters;
-                        console.log('multi', multiDelimiters);
+                    }
+                    else {
+                        delimiter = [customDelimiterExport[1]];
                     }
                 } else {
-                    delimiter = defaultConfig.delimiters; //handle case empty customDelimiter
+                    // return default delimiter id empty input.
+                    delimiter = defaultConfig.delimiters;
                 }
 
                 inputData = customDelimiterExport[2];
+
             } else {
                 delimiter = defaultConfig.delimiters;
                 inputData = $scope.inputNumbers;
@@ -49,9 +49,7 @@ function calculatorController($scope, calcConfig) {
 
             // Get the array of input numbers
             delimiterRegExp = new RegExp(delimiter.join('|'));
-
             inputNumberArray = inputData.split(delimiterRegExp);
-            console.log('number', inputNumberArray);
 
             while (inputNumberArray.length) {
                 var number = inputNumberArray.pop();
