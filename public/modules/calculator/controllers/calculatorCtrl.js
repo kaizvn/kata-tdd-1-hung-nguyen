@@ -5,7 +5,7 @@
 
 function calculatorController($scope, calcConfig) {
     // Init default value
-    var defaultDelimiter = calcConfig.delimiters
+    var defaultConfig = calcConfig.getDefault()
         , exportDelimiterRegExp = new RegExp('^\/\/([^\n]*)\n([^]*)')
         , validateNumberRegExp = new RegExp('^([0-9-]+|)$');// if case 1,, and 1,\n isn't accepted, remove the regExp match with empty string
 
@@ -22,10 +22,10 @@ function calculatorController($scope, calcConfig) {
 
             // Check if input has delimiter defined
             if (customDelimiterExport !== null) {
-                delimiter = (customDelimiterExport[1].length !== 0) ? [customDelimiterExport[1]] : defaultDelimiter;
+                delimiter = (customDelimiterExport[1].length !== 0) ? [customDelimiterExport[1]] : defaultConfig.delimiters;
                 inputData = customDelimiterExport[2];
             } else {
-                delimiter = defaultDelimiter;
+                delimiter = defaultConfig.delimiters;
                 inputData = $scope.inputNumbers;
             }
 
@@ -55,10 +55,10 @@ function calculatorController($scope, calcConfig) {
 
     };
 
-    $scope.inputNumbers = calcConfig.inputNumbers;
-    $scope.result = (calcConfig.inputNumbers != 0) ? $scope.add() : 0;
+    $scope.inputNumbers = defaultConfig.inputNumbers;
+    $scope.result = (defaultConfig.inputNumbers != 0) ? $scope.add() : 0;
 }
 
-calculatorController.$inject = ['$scope', 'calcConfig'];
+calculatorController.$inject = ['$scope', 'defaultConfig'];
 
 kataApp.controller('calcCtrl', calculatorController);
