@@ -30,7 +30,7 @@ module.exports = function (grunt) {
             },
             test: {
                 files: [
-                    'public/modules/**/*.tests.js'
+                    'public/modules/**/*.js'
                 ],
                 tasks: ['karma'],
                 options: {nospawn: true}

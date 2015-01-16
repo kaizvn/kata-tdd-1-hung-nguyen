@@ -55,6 +55,7 @@ function calculatorController($scope, calcConfig) {
                         throw new Error("negatives not allowed");
                     }
                     $scope.result += (isNaN(number)) ? 0 : number;
+                    $scope.result %= 1000;
 
                 } else {
                     $scope.result = 0;
@@ -62,7 +63,7 @@ function calculatorController($scope, calcConfig) {
                 }
             }
         }
-        $scope.result = $scope.result % 1000;  // Results bigger than 1000 should be ignored
+
         return $scope.result;
     };
 
