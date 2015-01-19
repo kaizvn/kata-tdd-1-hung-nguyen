@@ -4,13 +4,22 @@
 
 (function () {
     function calculatorConfig() {
-        // Define calculator's default value
+        /* ** Define calculator's default value **
+         * delimiters: Task 3 include \n as delimiters.
+         * inputNumbers: default value display in input text.
+         * validateNumberPattern : if case 1,, and 1,\n isn't accepted, remove the regExp match with empty string
+         */
         var defaultValue = {
-            delimiters: [',', '\n'], // task 3 include \n as delimiters.
-            inputNumbers: '0' // default value display in input text.
+            delimiters: [',', '\n'],
+            inputNumbers: '0',
+            exportDelimiterPattern: '^//([^\n]*)\n([^]*)',
+            validateNumberPattern: '^(-*[0-9]+|)$',
+            multiDelimitersPattern: '[^\\[\\]]+',
+            customDelimiterPattern: '([\/\\\\?\\+\\.\\*\\|\\$])'
+
         };
 
-        var config = {
+        return {
             getDefault: function () {
                 return defaultValue;
             },
@@ -18,7 +27,6 @@
                 defaultValue[attribute] = value;
             }
         }
-        return config;
     }
 
     calculatorConfig.$inject = [];

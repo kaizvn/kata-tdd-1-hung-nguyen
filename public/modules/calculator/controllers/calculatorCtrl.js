@@ -6,9 +6,10 @@
 function calculatorController($scope, calcConfig) {
     // Init default value & Regex string
     var defaultConfig = calcConfig.getDefault()
-        , exportDelimiterRegExp = new RegExp('^//([^\n]*)\n([^]*)')
-        , validateNumberRegExp = new RegExp('^(-*[0-9]+|)$')// if case 1,, and 1,\n isn't accepted, remove the regExp match with empty string
-        , multiDelimitersRegExp = new RegExp('[^\\[\\]]+', 'g');
+        , exportDelimiterRegExp = new RegExp(defaultConfig.exportDelimiterPattern)
+        , validateNumberRegExp = new RegExp(defaultConfig.validateNumberPattern)
+        , multiDelimitersRegExp = new RegExp(defaultConfig.multiDelimitersPattern, 'g')
+        , customDelimiterRegExp = new RegExp(defaultConfig.customDelimiterPattern, 'g');
 
     $scope.add = function () {
         // Reset result
@@ -25,7 +26,7 @@ function calculatorController($scope, calcConfig) {
             if (customDelimiterExport !== null) {
                 if (customDelimiterExport[1].length !== 0) {
                     // Add before special characters an escape-string
-                    customDelimiterExport[1] = customDelimiterExport[1].replace(/([\/\\\?\+\.\*\|\$])/g, '\\$1');
+                    customDelimiterExport[1] = customDelimiterExport[1].replace(customDelimiterRegExp, '\\$1');
 
                     // Check if has multi delimiters
                     multiDelimiters = customDelimiterExport[1].match(multiDelimitersRegExp);
